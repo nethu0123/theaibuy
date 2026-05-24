@@ -1,0 +1,6 @@
+{
+  "name": "theaibuy",
+  "description": "Buy smarter AI tools. Save more. Free AI spend audit web app.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

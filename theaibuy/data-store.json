@@ -1,0 +1,414 @@
+{
+  "audits": [
+    {
+      "public_slug": "audit-94d5isr8o",
+      "input_json": {
+        "teamSize": 3,
+        "useCase": "mixed",
+        "tools": [
+          {
+            "id": "row-default-1",
+            "toolId": "cursor",
+            "planId": "pro",
+            "seats": 1
+          },
+          {
+            "id": "row-default-2",
+            "toolId": "claude",
+            "planId": "pro",
+            "seats": 3
+          }
+        ]
+      },
+      "result_json": {
+        "currentMonthlySpend": 80,
+        "recommendedMonthlySpend": 80,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolId": "cursor",
+            "toolName": "Cursor",
+            "currentPlanName": "Pro",
+            "currentSpend": 20,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 20,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Cursor (Pro) is well-priced and optimized."
+          },
+          {
+            "toolId": "claude",
+            "toolName": "Claude",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Claude (Pro) is well-priced and optimized."
+          }
+        ],
+        "overlappingToolsDetected": [],
+        "summary": "Your team of 3 is currently highly optimized for the mixed use case! Everything is configured on the best matching tiers with zero redundancy detected across your SaaS tools. We advise maintaining your current setup and continuing to monitor prices."
+      },
+      "total_monthly_savings": 0,
+      "total_annual_savings": 0,
+      "created_at": "2026-05-26T06:04:51.255Z"
+    },
+    {
+      "public_slug": "audit-bzne4yg6m",
+      "input_json": {
+        "teamSize": 10,
+        "useCase": "coding",
+        "tools": [
+          {
+            "id": "row-default-1",
+            "toolId": "cursor",
+            "planId": "pro",
+            "seats": 3
+          },
+          {
+            "id": "row-default-2",
+            "toolId": "claude",
+            "planId": "pro",
+            "seats": 3
+          }
+        ]
+      },
+      "result_json": {
+        "currentMonthlySpend": 120,
+        "recommendedMonthlySpend": 120,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolId": "cursor",
+            "toolName": "Cursor",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Cursor (Pro) is well-priced and optimized."
+          },
+          {
+            "toolId": "claude",
+            "toolName": "Claude",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Claude (Pro) is well-priced and optimized."
+          }
+        ],
+        "overlappingToolsDetected": [],
+        "summary": "Your team of 10 is currently highly optimized for the coding use case! Everything is configured on the best matching tiers with zero redundancy detected across your SaaS tools. We advise maintaining your current setup and continuing to monitor prices."
+      },
+      "total_monthly_savings": 0,
+      "total_annual_savings": 0,
+      "created_at": "2026-05-26T06:54:32.253Z"
+    },
+    {
+      "public_slug": "audit-419wylrdh",
+      "input_json": {
+        "teamSize": 3,
+        "useCase": "mixed",
+        "tools": [
+          {
+            "id": "row-default-1",
+            "toolId": "cursor",
+            "planId": "enterprise",
+            "seats": 3
+          },
+          {
+            "id": "row-default-2",
+            "toolId": "claude",
+            "planId": "pro",
+            "seats": 3
+          }
+        ]
+      },
+      "result_json": {
+        "currentMonthlySpend": 360,
+        "recommendedMonthlySpend": 180,
+        "totalMonthlySavings": 180,
+        "totalAnnualSavings": 2160,
+        "recommendations": [
+          {
+            "toolId": "cursor",
+            "toolName": "Cursor",
+            "currentPlanName": "Enterprise",
+            "currentSpend": 300,
+            "recommendedPlanName": "Business",
+            "recommendedSpend": 120,
+            "action": "downgrade",
+            "monthlySavings": 180,
+            "reason": "Enterprise plans represent huge price-markups. Small teams of 3 are better optimized on the Business plan."
+          },
+          {
+            "toolId": "claude",
+            "toolName": "Claude",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Claude (Pro) is well-priced and optimized."
+          }
+        ],
+        "overlappingToolsDetected": [],
+        "summary": "At theaibuy, our audit of your mixed-use AI subscriptions reveals that your 3-member team is currently overspending, with a monthly outlay of $360. The primary source of waste is an excessive Enterprise plan for Cursor, which carries heavy price markups unnecessary for a team of your size.\n\nBy downgrading Cursor from Enterprise to the Business plan, you maintain optimal workflow performance while cutting your monthly spend to $180. This adjustment yields $180 in monthly savings, reclaiming $2,160 annually.\n\n**Action Required:** Access your Cursor admin portal today and transition your 3 seats to the Business plan to capture these immediate savings."
+      },
+      "total_monthly_savings": 180,
+      "total_annual_savings": 2160,
+      "created_at": "2026-05-26T08:28:39.002Z"
+    },
+    {
+      "public_slug": "audit-gsvlax0ok",
+      "input_json": {
+        "teamSize": 3,
+        "useCase": "mixed",
+        "tools": [
+          {
+            "id": "row-default-1",
+            "toolId": "cursor",
+            "planId": "pro",
+            "seats": 3
+          },
+          {
+            "id": "row-default-2",
+            "toolId": "claude",
+            "planId": "pro",
+            "seats": 3
+          }
+        ]
+      },
+      "result_json": {
+        "currentMonthlySpend": 120,
+        "recommendedMonthlySpend": 120,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolId": "cursor",
+            "toolName": "Cursor",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Cursor (Pro) is well-priced and optimized."
+          },
+          {
+            "toolId": "claude",
+            "toolName": "Claude",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Claude (Pro) is well-priced and optimized."
+          }
+        ],
+        "overlappingToolsDetected": [],
+        "summary": "Our audit of your 3-user mixed-use AI stack reveals an exceptionally lean operation. At a monthly spend of $120, your subscription efficiency is at 100%, yielding $0 in active waste. We identified no overlapping tool functionalities, bloated enterprise tiers, or idle seat licenses. \n\nTo preserve this optimized baseline as you scale, we recommend implementing a proactive SaaS governance framework. Prior to adding new software, audit for feature overlap and enforce strict seat-allocation controls to prevent seat-count minimum traps. Your stack remains a model of fiscal discipline—no immediate corrective action is required."
+      },
+      "total_monthly_savings": 0,
+      "total_annual_savings": 0,
+      "created_at": "2026-05-26T08:30:56.541Z"
+    },
+    {
+      "public_slug": "audit-i4vqpwj9w",
+      "input_json": {
+        "teamSize": 3,
+        "useCase": "mixed",
+        "tools": [
+          {
+            "id": "row-default-1",
+            "toolId": "cursor",
+            "planId": "pro",
+            "seats": 3
+          },
+          {
+            "id": "row-default-2",
+            "toolId": "claude",
+            "planId": "pro",
+            "seats": 3
+          }
+        ]
+      },
+      "result_json": {
+        "currentMonthlySpend": 120,
+        "recommendedMonthlySpend": 120,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolId": "cursor",
+            "toolName": "Cursor",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Cursor (Pro) is well-priced and optimized."
+          },
+          {
+            "toolId": "claude",
+            "toolName": "Claude",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Claude (Pro) is well-priced and optimized."
+          }
+        ],
+        "overlappingToolsDetected": [],
+        "summary": "An audit of your 3-user, mixed-use AI stack reveals that your current $120 monthly spend is perfectly optimized, with $0 in waste. Your team has successfully avoided the most common SaaS pitfalls: redundant tool overlaps, artificial seat minimums, and unnecessary enterprise tiers. \n\nNo corrective budget action is required today. To maintain this peak efficiency as you scale, we recommend implementing a formal procurement protocol. Establish a \"one-in, one-out\" policy for new AI adoptions to prevent future subscription creep. Currently, your stack represents an ideal benchmark for lean, high-utility SaaS deployment."
+      },
+      "total_monthly_savings": 0,
+      "total_annual_savings": 0,
+      "created_at": "2026-05-26T08:32:00.594Z"
+    },
+    {
+      "public_slug": "audit-jw0yqdl82",
+      "input_json": {
+        "teamSize": 3,
+        "useCase": "mixed",
+        "tools": [
+          {
+            "seats": 3,
+            "toolId": "cursor",
+            "planId": "pro"
+          },
+          {
+            "seats": 3,
+            "toolId": "claude",
+            "planId": "pro"
+          }
+        ]
+      },
+      "result_json": {
+        "currentMonthlySpend": 120,
+        "recommendedMonthlySpend": 120,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolId": "cursor",
+            "toolName": "Cursor",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Cursor (Pro) is well-priced and optimized."
+          },
+          {
+            "toolId": "claude",
+            "toolName": "Claude",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Claude (Pro) is well-priced and optimized."
+          }
+        ],
+        "overlappingToolsDetected": [],
+        "summary": "Our audit of your 3-member team’s $120 monthly AI spend confirms that your subscription stack is fully optimized. We identified zero financial waste: your mixed-use workflow has no overlapping tool functionalities, inflated enterprise tiers, or unutilized seat-count minimums. Consequently, monthly and annual savings are currently $0. \n\nTo maintain this peak efficiency and safeguard your budget against future SaaS creep, we recommend implementing a strict \"one-in, one-out\" procurement policy for new AI tools and reviewing seat utilization quarterly as you scale. Your current allocation is perfectly calibrated for lean, high-impact operations."
+      },
+      "total_monthly_savings": 0,
+      "total_annual_savings": 0,
+      "created_at": "2026-05-26T08:35:09.624Z"
+    },
+    {
+      "public_slug": "audit-l26uscls5",
+      "input_json": {
+        "teamSize": 3,
+        "useCase": "mixed",
+        "tools": [
+          {
+            "id": "row-default-1",
+            "toolId": "cursor",
+            "planId": "pro",
+            "seats": 3
+          },
+          {
+            "id": "row-default-2",
+            "toolId": "claude",
+            "planId": "pro",
+            "seats": 3
+          }
+        ]
+      },
+      "result_json": {
+        "currentMonthlySpend": 120,
+        "recommendedMonthlySpend": 120,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolId": "cursor",
+            "toolName": "Cursor",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Cursor (Pro) is well-priced and optimized."
+          },
+          {
+            "toolId": "claude",
+            "toolName": "Claude",
+            "currentPlanName": "Pro",
+            "currentSpend": 60,
+            "recommendedPlanName": "Pro",
+            "recommendedSpend": 60,
+            "action": "keep",
+            "monthlySavings": 0,
+            "reason": "Your current use of Claude (Pro) is well-priced and optimized."
+          }
+        ],
+        "overlappingToolsDetected": [],
+        "summary": "As theaibuy’s financial auditor, I have evaluated your 3-user, mixed-use AI subscription stack. Your current monthly spend of $120 perfectly aligns with our recommended benchmark, resulting in $0 in waste. \n\nWhile SaaS portfolios often suffer from overlapping tools or inflated seat minimums, your deployment is fully optimized. No immediate consolidation is required. To maintain this exemplary fiscal efficiency, we advise implementing a pre-approval workflow for new licenses and conducting quarterly usage audits. This proactive governance will prevent future subscription creep and preserve your lean cost-to-utility ratio as your team's workflows evolve."
+      },
+      "total_monthly_savings": 0,
+      "total_annual_savings": 0,
+      "created_at": "2026-05-26T08:37:12.415Z"
+    }
+  ],
+  "leads": [
+    {
+      "audit_id": "audit-bzne4yg6m",
+      "email": "nethu012345@gmail.com",
+      "company_name": "sample1",
+      "role": "founder",
+      "team_size": 10,
+      "high_savings": false,
+      "created_at": "2026-05-26T06:54:58.894Z"
+    },
+    {
+      "audit_id": "audit-419wylrdh",
+      "email": "nethu012345@gmail.com",
+      "company_name": "sample1",
+      "role": "founder",
+      "team_size": 3,
+      "high_savings": false,
+      "created_at": "2026-05-26T08:29:13.241Z"
+    }
+  ]
+}

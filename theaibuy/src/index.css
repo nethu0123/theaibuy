@@ -18,6 +18,381 @@ body {
   font-family: var(--font-sans);
 }
 
+@keyframes theaibuy-fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes theaibuy-soft-pulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scaleX(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes theaibuy-border-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+#theaibuy-root-viewport button,
+#theaibuy-root-viewport a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#theaibuy-root-viewport {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    #09090b;
+  background-size: 72px 72px, 72px 72px, auto;
+  scroll-behavior: smooth;
+}
+
+#header-nav-home,
+#header-nav-results {
+  position: relative;
+  padding-block: 0.35rem;
+}
+
+#header-nav-home::after,
+#header-nav-results::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: #FFDE00;
+  opacity: 0;
+  transform: scaleX(0.35);
+  transform-origin: center;
+  transition:
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#header-nav-home:hover::after,
+#header-nav-results:hover::after {
+  opacity: 0.75;
+  transform: scaleX(1);
+}
+
+#theaibuy-root-viewport button:not(:disabled),
+#theaibuy-root-viewport a[class*="bg-"] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+}
+
+#theaibuy-root-viewport button:not(:disabled)::before,
+#theaibuy-root-viewport a[class*="bg-"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.22) 48%, transparent 72%);
+  transform: translateX(-120%);
+  transition:
+    opacity 180ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#theaibuy-root-viewport button:not(:disabled):hover,
+#theaibuy-root-viewport a[class*="bg-"]:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.08);
+}
+
+#theaibuy-root-viewport button:not(:disabled):hover svg,
+#theaibuy-root-viewport a[class*="bg-"]:hover svg {
+  transform: translateX(2px) scale(1.06);
+}
+
+#theaibuy-root-viewport button svg,
+#theaibuy-root-viewport a svg {
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#theaibuy-root-viewport button:not(:disabled):hover::before,
+#theaibuy-root-viewport a[class*="bg-"]:hover::before {
+  opacity: 1;
+  transform: translateX(120%);
+}
+
+#theaibuy-root-viewport button:not(:disabled):active,
+#theaibuy-root-viewport a[class*="bg-"]:active {
+  transform: translateY(0) scale(0.98);
+}
+
+#theaibuy-root-viewport button:focus-visible,
+#theaibuy-root-viewport a:focus-visible {
+  outline: 2px solid rgba(255, 222, 0, 0.85);
+  outline-offset: 3px;
+}
+
+#theaibuy-root-viewport input:focus,
+#theaibuy-root-viewport input:focus-visible,
+#theaibuy-root-viewport input:active,
+#theaibuy-root-viewport select:focus,
+#theaibuy-root-viewport select:focus-visible,
+#theaibuy-root-viewport select:active {
+  outline: none;
+  box-shadow:
+    0 0 0 1px rgba(255, 222, 0, 0.72),
+    0 0 0 5px rgba(255, 222, 0, 0.11),
+    0 14px 38px -26px rgba(255, 222, 0, 0.65);
+}
+
+#subscription-audit-form-container,
+#main-savings-highlight-hero,
+#high-savings-expert-cta,
+#low-savings-optimized-hook,
+#ai-summary-highlight-container,
+#lead-capture-email-form,
+#view-audit-results [class*="rounded-2xl"][class*="border"],
+#view-public-shared-scorecard [class*="rounded-2xl"][class*="border"],
+#view-public-shared-scorecard [class*="rounded-3xl"][class*="border"],
+#problem-card-1,
+#problem-card-2,
+#problem-card-3 {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    radial-gradient(circle at var(--card-glow-x, 50%) -20%, rgba(255, 222, 0, 0.08), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 35%);
+  background-blend-mode: screen, normal;
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 220ms ease,
+    box-shadow 260ms ease,
+    background-position 320ms ease,
+    filter 260ms ease;
+}
+
+#subscription-audit-form-container::after,
+#main-savings-highlight-hero::after,
+#ai-summary-highlight-container::after,
+#lead-capture-email-form::after,
+#view-public-shared-scorecard [class*="rounded-3xl"][class*="border"]::after,
+#problem-card-1::after,
+#problem-card-2::after,
+#problem-card-3::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.11), transparent 22%, transparent 70%, rgba(255, 222, 0, 0.06));
+  transition: opacity 260ms ease;
+}
+
+#subscription-audit-form-container:hover::after,
+#main-savings-highlight-hero:hover::after,
+#ai-summary-highlight-container:hover::after,
+#lead-capture-email-form:hover::after,
+#view-public-shared-scorecard [class*="rounded-3xl"][class*="border"]:hover::after,
+#problem-card-1:hover::after,
+#problem-card-2:hover::after,
+#problem-card-3:hover::after {
+  opacity: 1;
+}
+
+#subscription-audit-form-container:hover,
+#main-savings-highlight-hero:hover,
+#high-savings-expert-cta:hover,
+#low-savings-optimized-hook:hover,
+#ai-summary-highlight-container:hover,
+#lead-capture-email-form:hover,
+#view-audit-results [class*="rounded-2xl"][class*="border"]:hover,
+#view-public-shared-scorecard [class*="rounded-2xl"][class*="border"]:hover,
+#view-public-shared-scorecard [class*="rounded-3xl"][class*="border"]:hover,
+#problem-card-1:hover,
+#problem-card-2:hover,
+#problem-card-3:hover {
+  border-color: rgba(255, 222, 0, 0.32);
+  box-shadow:
+    0 20px 60px -34px rgba(255, 222, 0, 0.5),
+    0 16px 48px -36px rgba(0, 0, 0, 0.85);
+  filter: saturate(1.05);
+}
+
+#problem-card-1:hover .w-12,
+#problem-card-2:hover .w-12,
+#problem-card-3:hover .w-12,
+#lead-capture-email-form:hover .w-10,
+#view-public-shared-scorecard [class*="rounded-3xl"][class*="border"]:hover .w-12 {
+  transform: translateY(-2px) rotate(-2deg);
+  box-shadow: 0 14px 32px -22px rgba(255, 222, 0, 0.75);
+}
+
+#problem-card-1 .w-12,
+#problem-card-2 .w-12,
+#problem-card-3 .w-12,
+#lead-capture-email-form .w-10,
+#view-public-shared-scorecard [class*="rounded-3xl"][class*="border"] .w-12 {
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms ease;
+}
+
+#subscription-audit-form-container:hover,
+#main-savings-highlight-hero:hover,
+#ai-summary-highlight-container:hover,
+#lead-capture-email-form:hover {
+  transform: translateY(-4px);
+}
+
+#theaibuy-root-viewport input,
+#theaibuy-root-viewport select {
+  transition:
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+#theaibuy-root-viewport input:hover,
+#theaibuy-root-viewport select:hover {
+  box-shadow: 0 10px 30px -24px rgba(255, 222, 0, 0.45);
+}
+
+#landing-hero-headline,
+#landing-hero-tagline,
+#trust-text-bullets,
+#problem-cards-section,
+#subscription-audit-form-container,
+#footer-trust-elements,
+#view-audit-results > *,
+#view-public-shared-scorecard > * {
+  animation: theaibuy-fade-rise 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+#landing-hero-tagline {
+  animation-delay: 70ms;
+}
+
+#trust-text-bullets,
+#problem-cards-section {
+  animation-delay: 120ms;
+}
+
+#subscription-audit-form-container,
+#footer-trust-elements {
+  animation-delay: 180ms;
+}
+
+#problem-card-1,
+#problem-card-2,
+#problem-card-3,
+#view-audit-results [class*="rounded-2xl"][class*="border"],
+#view-public-shared-scorecard [class*="rounded-2xl"][class*="border"] {
+  will-change: transform;
+}
+
+#badge-beta-offer,
+#view-audit-results .inline-flex,
+#view-public-shared-scorecard .inline-flex {
+  box-shadow: inset 0 0 24px rgba(255, 222, 0, 0.04);
+}
+
+#badge-beta-offer::after,
+#view-audit-results .inline-flex::after,
+#view-public-shared-scorecard .inline-flex::after {
+  content: "";
+  width: 24px;
+  height: 1px;
+  border-radius: 999px;
+  background: #FFDE00;
+  opacity: 0.65;
+  animation: theaibuy-soft-pulse 2.4s ease-in-out infinite;
+}
+
+#theaibuy-root-viewport button[class*="bg-[#FFDE00]"]:not(:disabled),
+#theaibuy-root-viewport button[class*="bg-black"]:not(:disabled) {
+  background-size: 200% 100%;
+}
+
+#theaibuy-root-viewport button[class*="bg-[#FFDE00]"]:not(:disabled):hover {
+  box-shadow:
+    0 14px 38px -22px rgba(255, 222, 0, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+#theaibuy-root-viewport button[class*="bg-black"]:not(:disabled):hover {
+  box-shadow:
+    0 14px 34px -24px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+#theaibuy-root-viewport [class*="border-dashed"]:hover {
+  background-image: linear-gradient(90deg, rgba(255, 222, 0, 0.03), rgba(255, 222, 0, 0.12), rgba(255, 222, 0, 0.03));
+  background-size: 200% 100%;
+  animation: theaibuy-border-flow 1.8s linear infinite;
+}
+
+#theaibuy-root-viewport form [class*="grid-cols-12"]:hover {
+  transform: translateX(2px);
+  box-shadow: 0 16px 38px -34px rgba(255, 222, 0, 0.55);
+}
+
+#theaibuy-root-viewport form [class*="grid-cols-12"] {
+  transition:
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #theaibuy-root-viewport *,
+  #theaibuy-root-viewport *::before,
+  #theaibuy-root-viewport *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  #theaibuy-root-viewport button,
+  #theaibuy-root-viewport a,
+  #subscription-audit-form-container,
+  #main-savings-highlight-hero,
+  #high-savings-expert-cta,
+  #low-savings-optimized-hook,
+  #ai-summary-highlight-container,
+  #lead-capture-email-form,
+  #problem-card-1,
+  #problem-card-2,
+  #problem-card-3 {
+    transform: none !important;
+  }
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

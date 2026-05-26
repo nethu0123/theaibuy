@@ -331,6 +331,10 @@ export default function App() {
       }
 
       const rawData = await res.json();
+
+      if (!rawData?.result || !rawData?.publicSlug) {
+        throw new Error("Audit completed but the server response was missing result data.");
+      }
       
       const combinedResult: AuditResult = {
         ...rawData.result,
@@ -346,11 +350,8 @@ export default function App() {
         JSON.stringify({ result: combinedResult, slug: rawData.publicSlug })
       );
 
-      // Programmatic delay to show the "Analyzing AI spend" visual aura
-      setTimeout(() => {
-        setIsAuditing(false);
-        navigateTo("/audit-result");
-      }, 1000);
+      setIsAuditing(false);
+      navigateTo("/audit-result");
 
     } catch (err: any) {
       setErrorMessage(err.message || "Failed retrieving AI subscription audit.");
@@ -385,11 +386,18 @@ export default function App() {
         throw new Error(errText.error || "Lead recording service issue.");
       }
 
-      setLeadCollected(true);
+      const data = await res.json();
+      const delivery = data.emailDelivery;
+      setLeadCollected(Boolean(delivery?.sent));
+      if (delivery && !delivery.sent) {
+        setErrorMessage(`${delivery.message} Public report link: ${delivery.reportLink}`);
+      }
       // Clean captures fields
-      setEmailInput("");
-      setCompanyName("");
-      setRole("");
+      if (delivery?.sent) {
+        setEmailInput("");
+        setCompanyName("");
+        setRole("");
+      }
     } catch (e: any) {
       setErrorMessage(e.message || "Issues occurred saving your lead criteria.");
     } finally {
@@ -398,14 +406,21 @@ export default function App() {
   };
 
   // Copy share links
-  const handleCopyLink = (customSlug?: string) => {
+  const handleCopyLink = async (customSlug?: string) => {
     const slugToCopy = customSlug || currentSlug;
     if (!slugToCopy) return;
 
-    const fullLink = `${window.location.origin}/audit/${slugToCopy}`;
-    navigator.clipboard.writeText(fullLink);
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
+    const fullLink = new URL(`/audit/${encodeURIComponent(slugToCopy)}`, window.location.origin).toString();
+    try {
+      await navigator.clipboard.writeText(fullLink);
+      setCopiedLink(true);
+      setErrorMessage(null);
+      setTimeout(() => setCopiedLink(false), 2000);
+    } catch {
+      window.prompt("Copy this public audit link:", fullLink);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    }
   };
 
   // Ensure that every single tool row has a unique stable id for animation keys

@@ -50,15 +50,61 @@ function checkRateLimit(ip: string, map: Map<string, { timestamp: number; count:
 
 // Ensure proper APP_URL fallback
 const getAppUrl = (req: express.Request): string => {
-  if (process.env.APP_URL) return process.env.APP_URL;
-  const protocol = req.headers["x-forwarded-proto"] || req.protocol;
-  const host = req.headers.host || `localhost:${PORT}`;
-  return `${protocol}://${host}`;
+  const protocolHeader = req.headers["x-forwarded-proto"];
+  const hostHeader = req.headers["x-forwarded-host"] || req.headers.host;
+  const protocol = Array.isArray(protocolHeader) ? protocolHeader[0] : protocolHeader || req.protocol;
+  const host = Array.isArray(hostHeader) ? hostHeader[0] : hostHeader || `localhost:${PORT}`;
+  const requestUrl = `${protocol}://${host}`;
+  const configuredUrl = process.env.APP_URL?.trim().replace(/\/+$/, "");
+
+  if (!configuredUrl || configuredUrl.includes("MY_APP_URL")) {
+    return requestUrl;
+  }
+
+  const configuredHost = (() => {
+    try {
+      return new URL(configuredUrl).hostname;
+    } catch {
+      return "";
+    }
+  })();
+  const requestHost = host.split(":")[0];
+
+  if ((configuredHost === "localhost" || configuredHost === "127.0.0.1") && requestHost !== configuredHost) {
+    return requestUrl;
+  }
+
+  return configuredUrl;
 };
+
+function hasConfiguredValue(value: string | undefined, invalidNeedles: string[] = []): boolean {
+  if (!value) return false;
+  return !invalidNeedles.some((needle) => value.includes(needle));
+}
 
 // ==========================================
 // API ENDPOINTS
 // ==========================================
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    ok: true,
+    appUrl: getAppUrl(req),
+    services: {
+      gemini: {
+        configured: hasConfiguredValue(process.env.GEMINI_API_KEY, ["MY_GEMINI_API_KEY"])
+      },
+      supabase: {
+        configured: hasConfiguredValue(process.env.SUPABASE_URL, ["your-supabase-project"]) &&
+          hasConfiguredValue(process.env.SUPABASE_ANON_KEY, ["your-supabase-anon-key"])
+      },
+      resend: {
+        configured: hasConfiguredValue(process.env.RESEND_API_KEY, ["123456789"]),
+        mode: hasConfiguredValue(process.env.RESEND_API_KEY, ["123456789"]) ? "resend" : "local-log"
+      }
+    }
+  });
+});
 
 /**
  * POST /api/audit
@@ -151,7 +197,7 @@ app.post("/api/lead", async (req, res) => {
 
     // Send styled notification email via Resend
     const appUrl = getAppUrl(req);
-    await sendAuditConfirmation({
+    const emailDelivery = await sendAuditConfirmation({
       email,
       auditSlug,
       monthlySavings: total_monthly_savings,
@@ -161,7 +207,7 @@ app.post("/api/lead", async (req, res) => {
 
     console.log(`Lead documented and dispatched for email: ${email}`);
 
-    res.json({ success: true });
+    res.json({ success: true, emailDelivery });
   } catch (err: any) {
     console.error("Lead submission failure:", err);
     res.status(500).json({ error: "Failed to store lead and send email: " + err.message });

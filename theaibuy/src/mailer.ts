@@ -16,11 +16,32 @@ export interface SendConfirmationInput {
   appUrl: string;
 }
 
-export async function sendAuditConfirmation(input: SendConfirmationInput): Promise<void> {
+export interface SendConfirmationResult {
+  sent: boolean;
+  provider: "resend" | "local-log";
+  reportLink: string;
+  message: string;
+}
+
+function appendEmailLog(email: string, subject: string, textContent: string) {
+  const logMessage = `
+========================================
+[EMAIL SIMULATOR CONTENT - SENT AT: ${new Date().toISOString()}]
+TO: ${email}
+SUBJECT: ${subject}
+BODY TEXT:
+${textContent}
+========================================
+\n`;
+
+  fs.appendFileSync(LOG_FILE_PATH, logMessage);
+}
+
+export async function sendAuditConfirmation(input: SendConfirmationInput): Promise<SendConfirmationResult> {
   const { email, auditSlug, monthlySavings, annualSavings, appUrl } = input;
   const isHighSavings = monthlySavings > 500;
   
-  const reportLink = `${appUrl.trim().replace(/\/+$/, "")}/audit/${auditSlug}`;
+  const reportLink = `${appUrl.trim().replace(/\/+$/, "")}/audit/${encodeURIComponent(auditSlug)}`;
 
   const subject = `Your AI Stack Audit Report from theaibuy`;
   const textContent = `
@@ -89,7 +110,10 @@ https://theaibuy.com
   `;
 
   // Try sending through Resend REST API if key exists
-  if (process.env.RESEND_API_KEY) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const hasUsableResendKey = Boolean(resendApiKey && !resendApiKey.includes("123456789"));
+
+  if (hasUsableResendKey) {
     try {
       console.log(`Sending audit receipt via Resend to: ${email}...`);
       // Use onboarding@resend.dev if key is present but domain might not be verified, 
@@ -102,7 +126,7 @@ https://theaibuy.com
       const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+          "Authorization": `Bearer ${resendApiKey}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
@@ -116,14 +140,24 @@ https://theaibuy.com
 
       if (res.ok) {
         console.log("Resend confirmation email sent successfully using verified/sandbox address.");
-        return;
+        return {
+          sent: true,
+          provider: "resend",
+          reportLink,
+          message: "Email sent through Resend."
+        };
       } else {
         const errVal = await res.text();
-        const parsedErr = JSON.parse(errVal).message || errVal;
+        let parsedErr = errVal;
+        try {
+          parsedErr = JSON.parse(errVal).message || errVal;
+        } catch {
+          parsedErr = errVal;
+        }
         
         // If the custom domain wasn't verified or onboarding failed, log a friendly debug message and run the file logging
         if (errVal.includes("onboarding") || errVal.includes("not verified") || errVal.includes("validation_error")) {
-          console.log(`[Resend Sandbox State] Email transmission to ${email} successfully queued. Simulated transmission fallback log prepared (Domain unverified).`);
+          console.log(`[Resend Sandbox State] Email to ${email} was not delivered by Resend. Falling back to local log. Reason: ${parsedErr}`);
         } else {
           console.warn("Resend API returned message:", parsedErr);
         }
@@ -134,20 +168,24 @@ https://theaibuy.com
   }
 
   // Fallback: Append details to local log file
-  const logMessage = `
-========================================
-[EMAIL SIMULATOR CONTENT - SENT AT: ${new Date().toISOString()}]
-TO: ${email}
-SUBJECT: ${subject}
-BODY TEXT:
-${textContent}
-========================================
-\n`;
-
   try {
-    fs.appendFileSync(LOG_FILE_PATH, logMessage);
+    appendEmailLog(email, subject, textContent);
     console.log(`[EMAIL SIMULATOR] Saved receipt to emails-sent.log for: ${email}`);
+    return {
+      sent: false,
+      provider: "local-log",
+      reportLink,
+      message: hasUsableResendKey
+        ? "Resend did not deliver the email. The report was saved to emails-sent.log."
+        : "Resend is not configured. The report was saved to emails-sent.log."
+    };
   } catch (err) {
     console.error("Failed to write to local email log...", err);
+    return {
+      sent: false,
+      provider: "local-log",
+      reportLink,
+      message: "Email delivery failed and local email logging also failed."
+    };
   }
 }

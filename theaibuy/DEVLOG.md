@@ -44,6 +44,8 @@ Added `src/db.ts` with Supabase support and local JSON fallback so audits and le
 
 Added `src/mailer.ts` with Resend support and local email-log fallback for sending audit report links.
 
+## 2026-05-25
+
 ### 11. API routes
 
 Added backend routes for health checks, audit creation, lead capture, and public audit retrieval:
@@ -105,6 +107,10 @@ Renamed the new docs to capital format and updated README links.
 ### 22. Bug check and USD cleanup
 
 Checked the app for bugs, removed the INR currency toggle so all prices display only in USD, fixed a copied-link icon class typo, and verified the app with `npm run lint`, `npm run build`, and a production `/api/health` smoke test.
+
+### 23. Mandatory lead details
+
+Made company name and person role mandatory in the lead form. The frontend now requires both fields, and the backend rejects direct lead submissions that do not include company name and role.
 
 ## Current state
 

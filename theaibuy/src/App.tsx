@@ -354,7 +354,10 @@ export default function App() {
   // Lead dispatch captures
   const handleSubmitLead = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!emailInput) return;
+    if (!emailInput || !companyName.trim() || !role.trim()) {
+      setErrorMessage("Business email, company name, and role are required.");
+      return;
+    }
     
     setIsCapturingLead(true);
     setErrorMessage(null);
@@ -366,8 +369,8 @@ export default function App() {
         body: JSON.stringify({
           auditSlug: currentSlug,
           email: emailInput,
-          companyName,
-          role,
+          companyName: companyName.trim(),
+          role: role.trim(),
           teamSize,
           honeypot
         })
@@ -1169,10 +1172,11 @@ export default function App() {
                           />
                         </div>
 
-                        {/* Optional inputs */}
+                        {/* Required lead inputs */}
                         <div className="space-y-1.5">
-                          <label className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Company Name (Optional)</label>
+                          <label className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Company Name *</label>
                           <input 
+                            required
                             type="text"
                             placeholder="Acme Inc."
                             value={companyName}
@@ -1182,8 +1186,9 @@ export default function App() {
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">My Corporate Role (Optional)</label>
+                          <label className="text-[10px] text-zinc-400 uppercase font-bold tracking-wider">My Corporate Role *</label>
                           <input 
+                            required
                             type="text"
                             placeholder="Engineering Lead"
                             value={role}

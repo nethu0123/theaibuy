@@ -173,8 +173,8 @@ app.post("/api/lead", async (req, res) => {
       return res.json({ success: true, fake: true, message: "Receipt sent successfully." });
     }
 
-    if (!auditSlug || !email) {
-      return res.status(400).json({ error: "Audit token and email address are required identifiers." });
+    if (!auditSlug || !email || !companyName?.trim() || !role?.trim()) {
+      return res.status(400).json({ error: "Audit token, email address, company name, and role are required identifiers." });
     }
 
     // Retrieve original audit calculation for mailing aggregates
@@ -189,8 +189,8 @@ app.post("/api/lead", async (req, res) => {
     await saveLead({
       audit_id: auditSlug,
       email,
-      company_name: companyName || "",
-      role: role || "",
+      company_name: companyName.trim(),
+      role: role.trim(),
       team_size: teamSize ? Number(teamSize) : undefined,
       high_savings: total_monthly_savings > 500
     });

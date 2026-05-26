@@ -102,7 +102,10 @@ Added supporting docs:
 
 Renamed the new docs to capital format and updated README links.
 
+### 22. Bug check and USD cleanup
+
+Checked the app for bugs, removed the INR currency toggle so all prices display only in USD, fixed a copied-link icon class typo, and verified the app with `npm run lint`, `npm run build`, and a production `/api/health` smoke test.
+
 ## Current state
 
 `theaibuy` is now a working full-stack AI spend audit app with deterministic audit math, optional AI summaries, local and Supabase persistence, Resend/local email handling, public share pages, lead capture, and supporting business documentation.
-

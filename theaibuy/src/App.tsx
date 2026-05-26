@@ -120,15 +120,7 @@ export default function App() {
   // Navigation / Routing State
   const [currentPath, setCurrentPath] = useState<string>(window.location.pathname);
   
-  // Currency toggling state: 'USD' | 'INR'
-  const [currency, setCurrency] = useState<'USD' | 'INR'>('USD');
-  const USD_INR_RATE = 83.5;
-
   const formatCost = (usdAmount: number) => {
-    if (currency === "INR") {
-      const inrAmount = usdAmount * USD_INR_RATE;
-      return `₹${Math.round(inrAmount).toLocaleString("en-IN")}`;
-    }
     return `$${Math.round(usdAmount).toLocaleString()}`;
   };
   
@@ -665,23 +657,7 @@ export default function App() {
                   </h2>
                 </div>
                 <div className="flex items-center gap-3 self-center">
-                  {/* Currency Switcher Toggle */}
-                  <div className="flex items-center bg-zinc-950/80 p-0.5 rounded-lg border border-zinc-800">
-                    <button
-                      type="button"
-                      onClick={() => setCurrency("USD")}
-                      className={`px-3 py-1 text-[10px] sm:text-xs font-black rounded-md transition-all cursor-pointer ${currency === "USD" ? "bg-[#FFDE00] text-black" : "text-zinc-400 hover:text-white"}`}
-                    >
-                      USD ($)
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setCurrency("INR")}
-                      className={`px-3 py-1 text-[10px] sm:text-xs font-black rounded-md transition-all cursor-pointer ${currency === "INR" ? "bg-[#FFDE00] text-black" : "text-zinc-400 hover:text-white"}`}
-                    >
-                      INR (₹)
-                    </button>
-                  </div>
+                  <span className="px-2.5 py-1 bg-zinc-950/80 text-zinc-300 rounded-md border border-zinc-800 text-[10px] sm:text-xs font-black">USD ($)</span>
                   <span className="px-2.5 py-1 bg-[#FFDE00]/10 text-[#FFDE00] rounded-md border border-[#FFDE00]/25 text-[10px] sm:text-xs font-black">Live</span>
                 </div>
               </div>
@@ -808,9 +784,7 @@ export default function App() {
                                 >
                                   {availablePlans.map((planId) => {
                                     const usdPrice = PRICING_DATA[toolInput.toolId]?.plans[planId]?.pricePerSeatMonth || 0;
-                                    const formattedRate = currency === "INR" 
-                                      ? `₹${Math.round(usdPrice * USD_INR_RATE)}` 
-                                      : `$${usdPrice}`;
+                                    const formattedRate = `$${usdPrice}`;
                                     return (
                                       <option key={planId} value={planId} className="bg-zinc-950 text-white normal-case">
                                         {PRICING_DATA[toolInput.toolId]?.plans[planId]?.name} ({formattedRate}/mo counts)
@@ -1452,7 +1426,7 @@ export default function App() {
                     >
                       {copiedLink ? (
                         <>
-                          <Check className="w-4 o-4 text-[#FFDE00]" />
+                          <Check className="w-4 h-4 text-[#FFDE00]" />
                           <span>Copied link!</span>
                         </>
                       ) : (
@@ -1509,3 +1483,4 @@ export default function App() {
     </div>
   );
 }
+
